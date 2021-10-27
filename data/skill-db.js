@@ -11,9 +11,7 @@ const skills = [
 ]
 
 const find = (conditions, callback) => {
-  // see if this works, if not, execute the code in the catch block
   try {
-    // make sure that conditions is an object - if not throw a TypeError
     if (!(conditions instanceof Object)){
       throw new TypeError('Please pass in an object')
     }
@@ -25,6 +23,18 @@ const find = (conditions, callback) => {
   }
 }
 
+const findById = (id, callback) =>{
+  try {
+    const skill = skills.find(skill => skill._id === parseInt(id))
+    if (!skill) throw new Error ('No todo was found')
+    return callback(null, skill)
+  } catch (error) {
+    console.log(error)
+    return callback(error, null)
+  }
+}
+
 export { 
-	find
+	find,
+  findById
 }
